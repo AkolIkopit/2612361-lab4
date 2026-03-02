@@ -7,6 +7,7 @@ const result = document.getElementById("result");
 const spinner = document.getElementById("spinner");
 const error = document.getElementById("error");
 
+button.addEventListener("click", search);
 input.addEventListener("keydown", function (e) {
     if (e.key === "Enter")
         search();
