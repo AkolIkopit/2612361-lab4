@@ -5,7 +5,6 @@ async function searchCountry(countryName) {
     const errorMessage = document.getElementById('error-message');
 
     try {
-        // Reset UI
         errorMessage.classList.add('hidden');
         countryInfo.classList.add('hidden');
         borderSection.classList.add('hidden');
@@ -15,7 +14,7 @@ async function searchCountry(countryName) {
             throw new Error("Please enter a country name.");
         }
 
-        // Show spinner
+        // Show loading spinner
         spinner.classList.remove('hidden');
 
         // Fetch country data
@@ -27,7 +26,7 @@ async function searchCountry(countryName) {
         const data = await response.json();
         const country = data[0];
 
-        // Update country info
+        // Update DOM
         countryInfo.innerHTML = `
             <h2>${country.name.common}</h2>
             <p><strong>Capital:</strong> ${country.capital ? country.capital[0] : "N/A"}</p>
@@ -43,7 +42,7 @@ async function searchCountry(countryName) {
                 const borderResponse = await fetch(`https://restcountries.com/v3.1/alpha/${code}`);
                 const borderData = await borderResponse.json();
                 const borderCountry = borderData[0];
-
+                // Update bordering countries section
                 borderSection.innerHTML += `
                     <div class="border-item">
                         <p>${borderCountry.name.common}</p>
@@ -55,10 +54,11 @@ async function searchCountry(countryName) {
         }
 
     } catch (error) {
+        // Show error message
         errorMessage.textContent = error.message;
         errorMessage.classList.remove('hidden');
     } finally {
-        // Hide spinner
+        // Hide loading spinner
         spinner.classList.add('hidden');
     }
 }
